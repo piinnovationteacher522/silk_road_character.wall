@@ -23,16 +23,15 @@
             overflow: hidden;
             font-family: 'Comic Sans MS', 'Arial Rounded MT Bold', 'Segoe UI', sans-serif;
             color: var(--indigo);
+            background: #e7c99a url("market.jpg") center center / cover no-repeat fixed;
         }
 
-        #bg-layer {
-            position: absolute; inset: 0;
-            background-color: var(--sand);
-            background-image: url("絲路市集.jpeg");
-            background-size: cover;
-            background-position: center center;
-            background-repeat: no-repeat;
+        #market-bg {
+            position: fixed; inset: 0;
+            width: 100%; height: 100%;
+            object-fit: cover;
             z-index: 0;
+            pointer-events: none;
         }
 
         #showUiBtn {
@@ -169,6 +168,7 @@
 </head>
 <body>
 
+    <img id="market-bg" src="market.jpg" alt="">
     <div id="bg-layer"></div>
     <div id="wall"></div>
 
@@ -502,7 +502,9 @@
             if (!file) return;
             const reader = new FileReader();
             reader.onload = (event) => {
-                document.getElementById('bg-layer').style.backgroundImage = `url('${event.target.result}')`;
+                const picture = document.getElementById('market-bg');
+                picture.src = event.target.result;
+                document.body.style.backgroundImage = `url('${event.target.result}')`;
             };
             reader.readAsDataURL(file);
             e.target.value = '';
